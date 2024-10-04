@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.Model.Car;
 import web.Service.CarServiceImpl;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,7 +22,7 @@ public class CarsController {
     }
 
     @GetMapping()
-    public String getCars(@RequestParam(value = "count", required = false, defaultValue = "5") int count, Model model) {
+    public String getCars(@RequestParam(value = "count", required = false, defaultValue = "5") Integer count, Model model) {
         List<Car> cars = carDAO.getCar(count);
         model.addAttribute("car", cars);
         return "cars";
