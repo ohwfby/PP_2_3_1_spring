@@ -14,16 +14,17 @@ import java.util.List;
 @RequestMapping("/cars")
 public class CarsController {
 
-    private CarServiceImpl carDAO;
+    private final CarServiceImpl carServiceImpl;
+
 
     @Autowired
-    public CarsController(CarServiceImpl carDAO) {
-        this.carDAO = carDAO;
+    public CarsController(CarServiceImpl carServiceImpl) {
+        this.carServiceImpl = carServiceImpl;
     }
 
     @GetMapping()
     public String getCars(@RequestParam(value = "count", required = false, defaultValue = "5") Integer count, Model model) {
-        List<Car> cars = carDAO.getCar(count);
+        List<Car> cars = carServiceImpl.getCar(count);
         model.addAttribute("car", cars);
         return "cars";
     }
