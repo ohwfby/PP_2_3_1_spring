@@ -6,7 +6,6 @@ import web.Model.User;
 import java.util.ArrayList;
 import java.util.List;
 @Component
-
 public class UserServiceImpl implements UserService {
     public static List<User> users;
 

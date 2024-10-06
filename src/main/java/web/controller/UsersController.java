@@ -18,8 +18,8 @@ import static web.Service.UserServiceImpl.users;
 public class UsersController {
 
     private final UserServiceImpl userServiceImpl;
-    @Value("${error.message}")
-    private String errorMessage;
+//    @Value("${error.message}")
+//    private String errorMessage;
     @Autowired
     public UsersController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
@@ -46,15 +46,15 @@ public class UsersController {
         Byte age = userForm.getAge();
 
         if (firstName != null && !firstName.isEmpty()
-                && age != null && age < 0
-                && lastName != null && !lastName.isEmpty()) {
+                && lastName != null && !lastName.isEmpty()
+                && age != null && age > 0) {
 
             User newPerson = new User(firstName, lastName, age);
             users.add(newPerson);
-            return "redirect:/users";
+            return "redirect:/";
         }
 
-        model.addAttribute("errorMessage", errorMessage);
+//        model.addAttribute("errorMessage", errorMessage);
         return "addPerson";
     }
 
