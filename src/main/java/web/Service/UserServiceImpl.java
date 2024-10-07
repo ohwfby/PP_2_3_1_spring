@@ -8,7 +8,7 @@ import java.util.List;
 @Component
 public class UserServiceImpl implements UserService {
     public static List<User> users;
-
+    private static int USER_COUNT;
     static {
         users = new ArrayList<>();
         users.add(new User("Michael","Semenov", (byte) 29));
@@ -23,6 +23,12 @@ public class UserServiceImpl implements UserService {
 
     public void addUser(List<User> users) {
         UserServiceImpl.users = users;
+    }
 
+    public void save(User user) {
+        users.add(user);
+    }
+    public void delete(User user) {
+        users.remove(user);
     }
 }

@@ -8,20 +8,23 @@
 <body>
 <h1>Create a User:</h1>
 <form th:action="@{/addUser}"
-      th:object="${userForm}" method="POST">
-    First Name:
-    <input type="text" th:field="*{firstName}" />
+      th:object="${user}" method="POST">
+    <label for="firstName">First Name</label>
+    <input type="text" th:field="*{firstName}" id="firstName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('firstName')}"
+         th:errors="*{firstName}">First Name error</div>
     <br/>
-    Last Name:
-    <input type="text" th:field="*{lastName}" />
+    <label for="lastName">Last Name</label>
+    <input type="text" th:field="*{lastName}" id="lastName" />
+    <div style="color:red" th:if="${#fields.hasErrors('lastName')}"
+         th:errors="*{lastName}">Last Name error</div>
     <br/>
-    Age:
-    <input type="text" th:field="*{age}" />
+    <label for="age">Age</label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <div style="color:red" th:if="${#fields.hasErrors('age')}"
+         th:errors="*{age}">Age error</div>
     <br/>
     <input type="submit" value="Create" />
 </form>
-<div th:if="${errorMessage}" th:utext="${errorMessage}"
-     style="color:red;font-style:italic;">
-</div>
 </body>
 </html>
