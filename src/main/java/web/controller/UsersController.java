@@ -6,21 +6,22 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.Model.User;
-import web.Service.UserServiceImpl;
+import web.dao.UserDAOImpl;
 import javax.validation.Valid;
 
 @Controller
 public class UsersController {
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserDAOImpl userDAO;
+
     @Autowired
-    public UsersController(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
+    public UsersController(UserDAOImpl userDAO) {
+        this.userDAO = userDAO;
     }
 
     @GetMapping
     public String users(Model model) {
-        model.addAttribute("users", userServiceImpl.getUsers());
+        model.addAttribute("users", userDAO.getUsers());
         return "users";
     }
     @GetMapping( "/addUser" )
@@ -33,8 +34,7 @@ public class UsersController {
         if (bindingResult.hasErrors())
             return "/addUser";
 
-            userServiceImpl.save(user);
+            userDAO.save(user);
             return "redirect:/";
-
     }
 }
