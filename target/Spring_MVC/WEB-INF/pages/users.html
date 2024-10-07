@@ -14,24 +14,30 @@
     <a href="updateUser">Update User</a>
     <br/><br/>
     <div>
-    <table border="2">
+    <table>
         <tr>
             <th>User Id</th>
             <th>First Name</th>
             <th>Last name</th>
             <th>Age</th>
+            <th>Operations</th>
         </tr>
         <tr th:each ="user : ${users}">
             <td th:utext="${user.getId}">...</td>
             <td th:utext="${user.getFirstName()}">...</td>
             <td th:utext="${user.getLastName()}">...</td>
             <td th:utext="${user.getAge}">...</td>
+            <td><input type="button" value="Update"/> </td>
+            <td><input type="button" value="Delete"/> </td>
+
+
         </tr>
     </table>
 </div>
 <br/><br/>
-<a href="addUser">Add</a>
-<input type="submit" value="Add"  />
+<!--<a href="addUser">Add</a>-->
+<input type="button" value="Add"
+onclick="window.location.href = 'addUser'"/>
 <br/><br/>
 </body>
 </html>

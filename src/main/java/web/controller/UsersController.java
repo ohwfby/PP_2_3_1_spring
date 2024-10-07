@@ -37,4 +37,9 @@ public class UsersController {
             userDAO.save(user);
             return "redirect:/";
     }
+
+    @RequestMapping("/updateUser")
+    public String showUpdateUserPage(@ModelAttribute("user") User user) {
+        return "updateUser";
+    }
 }
