@@ -6,40 +6,48 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.Model.User;
-import web.dao.UserDAOImpl;
+import web.Service.UserService;
 import javax.validation.Valid;
 
 @Controller
 public class UsersController {
 
-    private final UserDAOImpl userDAO;
+    private final UserService userService;
 
     @Autowired
-    public UsersController(UserDAOImpl userDAO) {
-        this.userDAO = userDAO;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String users(Model model) {
-        model.addAttribute("users", userDAO.getUsers());
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
-    @GetMapping( "/addUser" )
+    @GetMapping( "/add" )
     public String showAddUserPage(@ModelAttribute("user") User user) {
-        return "addUser";
+        return "add";
     }
 
-    @PostMapping("/addUser")
-    public String savePerson( @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    @PostMapping("/add")
+    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "/addUser";
-
-            userDAO.save(user);
+            return "/add";
+            userService.save(user);
             return "redirect:/";
     }
 
-    @RequestMapping("/updateUser")
-    public String showUpdateUserPage(@ModelAttribute("user") User user) {
-        return "updateUser";
+    @GetMapping("/edit")
+    public String editPage(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("user", userService.findById(id));
+        return "edit";
+    }
+    @PostMapping("/edit")
+    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        }
+        userService.edit(user);
+        return "redirect:/";
     }
 }

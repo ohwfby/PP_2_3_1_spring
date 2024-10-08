@@ -1,33 +1,55 @@
-//package web.Service;
-//
-//import org.springframework.stereotype.Component;
-//import web.Model.User;
-//import java.util.ArrayList;
-//import java.util.List;
-//@Component
-//public class UserServiceImpl implements UserService {
-//    public static List<User> users;
-//    private static int USER_COUNT;
-//    static {
-//        users = new ArrayList<>();
-//        users.add(new User("Michael","Semenov", (byte) 29));
-//        users.add(new User("Julia","Potapova", (byte) 21));
-//        users.add(new User("Ivan","Semenov", (byte) 20));
-//    }
-//
+package web.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import web.Model.User;
+import web.dao.UserDAO;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    private UserDAO userDAO;
+
+    @Autowired
+    public UserServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    @Transactional
+    @Override
+    public void save(User user) {
+        userDAO.save(user);
+    }
+
+    @Transactional
+    @Override
+    public void delete(User user) {
+        userDAO.delete(user);
+    }
+
+    @Override
+    public void edit(User user) {
+        userDAO.edit(user);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<User> findAll() {
+        return userDAO.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public User findById(Long id) {
+        Optional<User> foundedUser = Optional.ofNullable(userDAO.findById(id));
+        return foundedUser.orElse(null);
+    }
+//    @Transactional(readOnly = true)
 //    @Override
-//    public List<User> getUsers() {
-//        return users;
+//    public OptionalInt findById(int id) {
+//        return userDAO.findById(id);
 //    }
-//
-//    public void addUser(List<User> users) {
-//        UserServiceImpl.users = users;
-//    }
-//
-//    public void save(User user) {
-//        users.add(user);
-//    }
-//    public void delete(User user) {
-//        users.remove(user);
-//    }
-//}
+}
