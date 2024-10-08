@@ -7,12 +7,6 @@
 </head>
 <body>
 <h1>List of Users</h1>
-
-    <a href="deleteUser">Delete User</a>
-    <input type="submit" value="Delete"  />
-    <br/><br/>
-    <a href="updateUser">Update User</a>
-    <br/><br/>
     <div>
     <table>
         <tr>
@@ -27,15 +21,15 @@
             <td th:utext="${user.getFirstName()}">...</td>
             <td th:utext="${user.getLastName()}">...</td>
             <td th:utext="${user.getAge}">...</td>
-            <td><input type="button" value="Update"/> </td>
-            <td><input type="button" value="Delete"/> </td>
-
+            <td>
+                <input type="button" value="Update"
+            onclick="window.location.href = 'updateUser'"/>
+            <input type="button" value="Delete"/> </td>
 
         </tr>
     </table>
 </div>
 <br/><br/>
-<!--<a href="addUser">Add</a>-->
 <input type="button" value="Add"
 onclick="window.location.href = 'addUser'"/>
 <br/><br/>

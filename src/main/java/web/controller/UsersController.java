@@ -6,22 +6,22 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.Model.User;
-import web.dao.UserDAOImpl;
+import web.Service.UserService;
 import javax.validation.Valid;
 
 @Controller
 public class UsersController {
 
-    private final UserDAOImpl userDAO;
+    private final UserService userService;
 
     @Autowired
-    public UsersController(UserDAOImpl userDAO) {
-        this.userDAO = userDAO;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping
     public String users(Model model) {
-        model.addAttribute("users", userDAO.getUsers());
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
     @GetMapping( "/addUser" )
@@ -30,16 +30,25 @@ public class UsersController {
     }
 
     @PostMapping("/addUser")
-    public String savePerson( @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String savePerson(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "/addUser";
-
-            userDAO.save(user);
+            userService.save(user);
             return "redirect:/";
     }
 
-    @RequestMapping("/updateUser")
-    public String showUpdateUserPage(@ModelAttribute("user") User user) {
-        return "updateUser";
-    }
+//    @PostMapping("/updateUser")
+//    public String showUpdateUserPage(@RequestParam int id, Model model) {
+//        User user = userDAOImpl.getUser(id);
+//        model.addAttribute("user", user);
+//        return "updateUser";
+//    }
+//    @PostMapping("/updateUser")
+//    public String updatePerson( @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return "updateUser";
+//        }
+//        userDAOImpl.updateUser(user);
+//        return "redirect:/";
+//    }
 }

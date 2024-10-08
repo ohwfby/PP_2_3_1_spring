@@ -2,12 +2,14 @@ package web.Model;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "firstName")
     @NotEmpty(message = "Name should not be empty")
@@ -35,11 +37,11 @@ public class User {
         this.age = age;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -59,6 +61,15 @@ public class User {
         this.lastName = lastName;
     }
 
+    public Byte getAge() {
+        return age;
+    }
+
+    public void setAge(Byte age) {
+        this.age = age;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -68,13 +79,4 @@ public class User {
                 ", age=" + age +
                 '}';
     }
-
-    public Byte getAge() {
-        return age;
-    }
-
-    public void setAge(Byte age) {
-        this.age = age;
-    }
-
 }
