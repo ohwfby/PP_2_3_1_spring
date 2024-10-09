@@ -44,6 +44,7 @@ public class JavaConfig {
       em.setDataSource(getDataSource());
       em.setPackagesToScan("web/Model");
 
+
       final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
       em.setJpaVendorAdapter(vendorAdapter);
       em.setJpaProperties(getHibernateProperties());

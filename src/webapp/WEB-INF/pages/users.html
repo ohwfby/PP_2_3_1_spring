@@ -22,10 +22,9 @@
             <td>
                 <a class="btn btn-primary btn-xs"
                    th:href="@{/edit(id=${user.getId()})}">Edit</a>
-<!--                <input type="button" value="Edit"-->
-<!--            onclick="window.location.href = '{/edit(id=${user.getId()})}'"/>-->
-            <input type="button" value="Delete"
-            onclick="window.location.href = '/delete/${user.id}'"/>
+                <input type="submit" value="Delete"
+                onclick="window.location.href = '/delete/${user.id}'"/>
+                <input type="Submit" th:field="${user.getId()}"/>
             </td>
         </tr>
     </table>

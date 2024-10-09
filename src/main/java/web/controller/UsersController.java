@@ -30,7 +30,7 @@ public class UsersController {
     }
 
     @PostMapping("/add")
-    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String add(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "/add";
             userService.save(user);
@@ -43,11 +43,18 @@ public class UsersController {
         return "edit";
     }
     @PostMapping("/edit")
-    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String edit(@Valid @ModelAttribute("user")  User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
         userService.edit(user);
+        return "redirect:/";
+    }
+
+    @DeleteMapping
+    public String delete(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("user", userService.findById(id));
+        userService.delete(userService.findById(id));
         return "redirect:/";
     }
 }

@@ -19,17 +19,29 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void delete(User user) {
+        if(!em.contains(user)) {
+            user = em.find(User.class, user.getId());
+        }
         em.remove(user);
+        em.flush();
     }
 
     @Override
     public void edit(User user) {
+//        User userToEdit = em.find(User.class, user.getId());
+        if (!em.contains(user)) {
+            user = em.find(User.class, user.getId());
+        }
         em.merge(user);
     }
 
     @Override
     public User findById(Long id) {
-        return em.find(User.class, id);
+        User user = em.find(User.class, id);
+        if(user == null) {
+            throw new IllegalArgumentException("User not found with id: " + id);
+        }
+        return user;
     }
 
     @Override

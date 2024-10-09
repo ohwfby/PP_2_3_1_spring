@@ -5,8 +5,8 @@
     <title>Update</title>
 </head>
 <body>
-<h1>Update User:</h1>
-<form th:action="@{/edit}" th:object="${user}" method="POST">
+<h1>Edit User:</h1>
+<form th:action="@{/edit}" th:object="${user}" th:method="POST">
     <input type="hidden" th:field="*{id}" th:unless="${user.id !=null}"/>
     <label for="firstName">First Name</label>
     <input type="text" th:field="*{firstName}" id="firstName"/>

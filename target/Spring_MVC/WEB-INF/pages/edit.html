@@ -5,8 +5,8 @@
     <title>Update</title>
 </head>
 <body>
-<h1>Update User:</h1>
-<form th:action="@{/updateUser}" th:object="${user}" method="GET">
+<h1>Edit User:</h1>
+<form th:action="@{/edit}" th:object="${user}" th:method="POST">
     <input type="hidden" th:field="*{id}" th:unless="${user.id !=null}"/>
     <label for="firstName">First Name</label>
     <input type="text" th:field="*{firstName}" id="firstName"/>
@@ -23,7 +23,8 @@
     <div style="color:red" th:if="${#fields.hasErrors('age')}"
          th:errors="*{age}">Age error</div>
     <br/>
-    <input type="submit" value="Update" />
+    <input type="submit" value="Edit"/>
+</form>
 </form>
 </body>
 </html>
