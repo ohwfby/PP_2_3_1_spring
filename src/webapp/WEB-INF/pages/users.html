@@ -20,9 +20,14 @@
             <td th:utext="${user.getLastName()}">...</td>
             <td th:utext="${user.getAge}">...</td>
             <td>
-                <a class="btn btn-primary btn-xs"
-                   th:href="@{/edit(id=${user.getId()})}">Edit</a>
-                <a th:href="@{/delete(id=${user.getId()})}">Delete</a>
+                <form th:method="EDIT" th:action="@{edit(id=${user.getId()})}">
+                    <input type="submit" value="Edit">
+                    <form th:method="DELETE" th:action="@{delete(id=${user.getId()})}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </form>
+
+
             </td>
         </tr>
     </table>
