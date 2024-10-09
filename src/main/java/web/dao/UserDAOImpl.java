@@ -1,12 +1,13 @@
 package web.dao;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import web.Model.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Component
+@Repository
 public class UserDAOImpl implements UserDAO {
 
     @PersistenceContext
@@ -18,27 +19,19 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void delete(User user) {
-        if(!em.contains(user)) {
-            user = em.find(User.class, user.getId());
-        }
-        em.remove(user);
-        em.flush();
+    public void delete(Long id) {
+        em.remove(em.find(User.class, id));
     }
 
     @Override
     public void edit(User user) {
-//        User userToEdit = em.find(User.class, user.getId());
-        if (!em.contains(user)) {
-            user = em.find(User.class, user.getId());
-        }
         em.merge(user);
     }
 
     @Override
     public User findById(Long id) {
         User user = em.find(User.class, id);
-        if(user == null) {
+        if (user == null) {
             throw new IllegalArgumentException("User not found with id: " + id);
         }
         return user;
