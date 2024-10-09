@@ -2,12 +2,12 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update</title>
+    <title>Edit</title>
 </head>
 <body>
 <h1>Edit User:</h1>
 <form th:action="@{/edit}" th:object="${user}" th:method="POST">
-    <input type="hidden" th:field="*{id}" id="id"/>
+    <input type="hidden" th:field="*{id}" />
     <label for="firstName">First Name</label>
     <input type="text" th:field="*{firstName}" id="firstName"/>
     <div style="color:red" th:if="${#fields.hasErrors('firstName')}"
@@ -24,7 +24,6 @@
          th:errors="*{age}">Age error</div>
     <br/>
     <input type="submit" value="Edit" th:disabled="${#fields.hasErrors()}"/>
-</form>
 </form>
 </body>
 </html>

@@ -20,14 +20,11 @@
             <td th:utext="${user.getLastName()}">...</td>
             <td th:utext="${user.getAge}">...</td>
             <td>
-                <form th:method="EDIT" th:action="@{edit(id=${user.getId()})}">
-                    <input type="submit" value="Edit">
-                </form>
+                <a class="btn btn-primary btn-xs"
+                   th:href="@{/edit(id=${user.getId()})}">Edit</a>
                 <form th:method="DELETE" th:action="@{delete(id=${user.getId()})}">
                     <input type="submit" value="Delete">
                 </form>
-
-
             </td>
         </tr>
     </table>
